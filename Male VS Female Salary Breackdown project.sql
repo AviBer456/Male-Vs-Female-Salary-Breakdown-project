@@ -1,4 +1,10 @@
+/* In this project I will analyze the data from the database employees_mod.
+The tables that are created will feature on tableau here: https://public.tableau.com/app/profile/avi.berckovitch/viz/MaleVSFemaleSalariesBreakdown/Dashboard1 */
+
+
 USE employees_mod;
+
+/*Create a visualization that provides a breakdown between the male and female employees working in the company each year, starting from 1990. */
 
 SELECT
 	YEAR(de.from_date) AS calender_year,
@@ -11,6 +17,8 @@ GROUP BY calender_year, gender
 HAVING calender_year >= 1990
 ORDER BY calender_year
 ;
+
+/* Compare the number of male managers to the number of female managers from different departments for each year, starting from 1990. */
 
 SELECT 
     d.dept_name,
@@ -42,6 +50,8 @@ FROM
 ORDER BY dm.emp_no , calendar_year
 ;
 
+/* Compare the average salary of female versus male employees in the entire company until year 2002, and add a filter allowing you to see that per each department. */
+
 SELECT 
     e.gender,
     d.dept_name,
@@ -59,6 +69,9 @@ GROUP BY d.dept_no , e.gender , calendar_year
 HAVING calendar_year <= 2002
 ORDER BY d.dept_no
 ;
+
+/* Create an SQL stored procedure that will allow you to obtain the average male and female salary per department within a certain salary range.
+Let this range be defined by two values the user can insert when calling the procedure. */
 
 DROP PROCEDURE IF EXISTS filter_salary;
 
